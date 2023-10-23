@@ -1,10 +1,10 @@
 ---
-title:  "A Craftsman Workshop"
+title:  "A flyway学习笔记"
 subtitle: "It's always a bit messy"
-author: "Wferr"
-avatar: "img/authors/wferr.png"
+author: "suyi"
+avatar: "img/authors/app.png"
 image: "img/f.jpg"
-date:   2023-10-23 12:12:12
+date:   2015-04-26 12:12:12
 ---
 
 # flyway学习笔记

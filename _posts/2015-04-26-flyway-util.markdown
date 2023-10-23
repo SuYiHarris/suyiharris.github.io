@@ -1,5 +1,5 @@
 ---
-title:  "A flyway学习笔记"
+title:  "A flyway Util"
 subtitle: "It's always a bit messy"
 author: "suyi"
 avatar: "img/authors/app.png"

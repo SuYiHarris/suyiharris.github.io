@@ -5,8 +5,6 @@ author: "Wferr"
 avatar: "img/authors/wferr.png"
 image: "img/e.jpg"
 date:   2015-04-24 12:12:12
-layout: article
-category: UNIX
 ---
 
 ### Dolor sit amet?

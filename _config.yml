@@ -1,8 +1,24 @@
-# Site settings
-title: Modern Blog
-description: Modern-Blog A Elegant template for Jekyll
-keywords: Modern, Blogging, Fun
-author: Wferr
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "" # the base hostname & protocol for your site
-future: true
+title: IT-блог
+description: > # this means to ignore newlines until "baseurl:"
+  Blog with theme Future Imperfect<br>
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://www.haojiacheng.cn" # the base hostname & protocol for your site, e.g. http://example.com
+
+
+author:
+  name: 'SuYiHarris'
+  last_name: 'Harris'
+  cv: '//www.haojiacheng.cn'
+  avatar: '/images/avatar.jpeg'
+  github_username:  SuYiHarris  
+  email: 990784805@qq.com
+  vk_id: id201664979
+  telegram_name: vikapitoshka 
+  logo: '/images/logo.svg'
+
+# Build settings
+markdown: kramdown
+
+permalink: /:categories/:year/:title.html
+
+

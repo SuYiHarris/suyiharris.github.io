@@ -17,6 +17,6 @@ author:
 # Build settings
 markdown: markdown
 
-permalink: /:categories/:year/:title.md
+# permalink: /:categories/:year/:title.md
 
 

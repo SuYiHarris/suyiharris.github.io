@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="header">
+		    {% for item in site.data.navigation %}
+		        <a href="{{ item.link }}" class="headerItem">
+		            {{ item.name }}
+		        </a>
+		    {% endfor %}
+		</div>
+
+	</body>
+</html>

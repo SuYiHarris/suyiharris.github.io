@@ -3,7 +3,7 @@ title:  "A flyway Util"
 subtitle: "It's always a bit messy"
 author: "suyi"
 avatar: "img/authors/app.png"
-image: "img/g.jpg"
+image: "img/a.jpg"
 date:   2023-10-23 12:12:12
 ---
 

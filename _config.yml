@@ -1,4 +1,4 @@
-title: IT-блог
+title: 苏弋的博客
 description: > # this means to ignore newlines until "baseurl:"
   Blog with theme Future Imperfect<br>
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -9,16 +9,14 @@ author:
   name: 'SuYiHarris'
   last_name: 'Harris'
   cv: '//www.haojiacheng.cn'
-  avatar: '/images/avatar.jpeg'
+  avatar: '/images/app.png'
   github_username:  SuYiHarris  
   email: 990784805@qq.com
-  vk_id: id201664979
-  telegram_name: vikapitoshka 
   logo: '/images/logo.svg'
 
 # Build settings
-markdown: kramdown
+markdown: markdown
 
-permalink: /:categories/:year/:title.html
+permalink: /:categories/:year/:title.md
 
 

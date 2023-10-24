@@ -2,8 +2,6 @@
 title:  "A flyway Util"
 subtitle: "It's always a bit messy"
 author: "suyi"
-avatar: "img/authors/app.png"
-image: "img/a.jpg"
 date:   2023-10-23 12:12:12
 ---
 
@@ -69,14 +67,14 @@ resources/db/migration
 
 ### 5、启动项目后可以在flyway_schema_history表中查看相关语句执行记录
 
-
-![](https://files.mdnice.com/user/15599/44c900d7-b71e-46d4-9ec5-1df9b44452a8.png)
-
-
-![](https://files.mdnice.com/user/15599/78aec8d2-ff92-479a-bfe8-b17bb910be8e.png)
+ 
+![](https://pic.imgdb.cn/item/6537ce38c458853aef669346.jpg)
 
 
-![](https://files.mdnice.com/user/15599/9d3ad5f9-0ecb-4813-b2bb-c1c2c4f04b35.png)
+![](https://pic.imgdb.cn/item/6537ce47c458853aef66cfcb.jpg)
+
+
+![](https://pic.imgdb.cn/item/6537ce57c458853aef670fae.jpg)
 
 
 
@@ -117,7 +115,7 @@ resources/db/migration
 ```
 
 
-![](https://files.mdnice.com/user/15599/ca93cdb2-fa66-40d1-bc8c-5f2ba211fe10.png)
+![](https://pic.imgdb.cn/item/6537ce66c458853aef676645.jpg)
 
 
 ### 2、命令说明

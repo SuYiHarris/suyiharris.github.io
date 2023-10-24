@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>vue-Router | 苏弋的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="vue+ElementUI创建工程 创建一个名为hello-vue的工程 vue init webpack hello-vue  安装依赖，我们需要安装vue-router、element-ui、sass-loader和node-sass四个插件 123456789101112#进入工程目录cd hello-vue#安装 vue-routercnpm install vue-router --sa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-Router">
+<meta property="og:url" content="https://suyiharris.github.io/2023/10/24/2023-10-24-vue-Router/index.html">
+<meta property="og:site_name" content="苏弋的博客">
+<meta property="og:description" content="vue+ElementUI创建工程 创建一个名为hello-vue的工程 vue init webpack hello-vue  安装依赖，我们需要安装vue-router、element-ui、sass-loader和node-sass四个插件 123456789101112#进入工程目录cd hello-vue#安装 vue-routercnpm install vue-router --sa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://suyiharris.github.io/assets/1620581011763.png">
+<meta property="og:image" content="https://suyiharris.github.io/assets/1620619140254.png">
+<meta property="article:published_time" content="2023-10-24T04:12:12.000Z">
+<meta property="article:modified_time" content="2023-10-24T13:22:48.905Z">
+<meta property="article:author" content="SuYi">
+<meta property="article:tag" content="SuYi, Blog, Harris">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://suyiharris.github.io/assets/1620581011763.png">
+  
+    <link rel="alternate" href="/atom.xml" title="苏弋的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">苏弋的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">There is no one around me who is you, but there is no one who is not you.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suyiharris.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2023-10-24-vue-Router" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/24/2023-10-24-vue-Router/" class="article-date">
+  <time class="dt-published" datetime="2023-10-24T04:12:12.000Z" itemprop="datePublished">2023-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      vue-Router
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="vue-ElementUI"><a href="#vue-ElementUI" class="headerlink" title="vue+ElementUI"></a>vue+ElementUI</h1><h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><ol>
+<li><p>创建一个名为hello-vue的工程 <code>vue init webpack hello-vue</code></p>
+</li>
+<li><p>安装依赖，我们需要安装vue-router、element-ui、sass-loader和node-sass四个插件</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入工程目录</span></span><br><span class="line"><span class="attr">cd</span> <span class="string">hello-vue</span></span><br><span class="line"><span class="comment">#安装 vue-router</span></span><br><span class="line"><span class="attr">cnpm</span> <span class="string">install vue-router --save-dev</span></span><br><span class="line"><span class="comment">#安装 element-ui</span></span><br><span class="line"><span class="attr">cnpm</span> <span class="string">i element-ui -S</span></span><br><span class="line"><span class="comment">#安装依赖</span></span><br><span class="line"><span class="attr">cnpm</span> <span class="string">install</span></span><br><span class="line"><span class="comment">#安装 sass 加载器</span></span><br><span class="line"><span class="attr">cnpm</span> <span class="string">install sass-loader node-sass --save-dev</span></span><br><span class="line"><span class="comment">#启动测试</span></span><br><span class="line"><span class="attr">cnpm</span> <span class="string">run dev</span></span><br></pre></td></tr></table></figure>
+<p>安装报错，检查版本是否兼容，支持？</p>
+</li>
+<li><p>Npm命令解释：</p>
+<ul>
+<li>npm install moduleName: 安装模块到项目目录下</li>
+<li>npm install -g moduleName: -g的意思是将模块安装到全局，具体安装到磁盘哪个位置，要看npm config prefix的位置</li>
+<li>npm install –save moduleName: –save的意思是将模块安装到项目目录下，并在package文件的dependencies节点写入依赖，-S为该命令的缩写</li>
+<li>npm install –save-dev moduleName: –save-dev的意思是将模块安装到项目目录下，并在package文件的devDependencies节点写入依赖，-D为该命令的缩写</li>
+</ul>
+</li>
+</ol>
+<h2 id="创建登陆页面"><a href="#创建登陆页面" class="headerlink" title="创建登陆页面"></a>创建登陆页面</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;el-form ref=&quot;loginForm&quot; :model=&quot;form&quot; :rules=&quot;rules&quot; label-width=&quot;80px&quot; class=&quot;login-box&quot;&gt;</span><br><span class="line">  &lt;h3 class=&quot;login-title&quot;&gt;欢迎登录&lt;/h3&gt;</span><br><span class="line">  &lt;el-form-item label=&quot;账号&quot; prop=&quot;username&quot;&gt;</span><br><span class="line">  &lt;el-input type=&quot;text&quot; placeholder=&quot;请输入账号&quot; v-model=&quot;form.username&quot;/&gt;</span><br><span class="line">  &lt;/el-form-item&gt;</span><br><span class="line">  &lt;el-form-item label=&quot;密码&quot; prop=&quot;password&quot;&gt;</span><br><span class="line">  &lt;el-input type=&quot;password&quot; placeholder=&quot;请输入密码&quot; v-model=&quot;form.password&quot;/&gt;</span><br><span class="line">  &lt;/el-form-item&gt;</span><br><span class="line">  &lt;el-form-item&gt;</span><br><span class="line">  &lt;el-button type=&quot;primary&quot; v-on:click=&quot;onSubmit(loginForm)&quot;&gt;登录&lt;/el-button&gt;</span><br><span class="line">  &lt;/el-form-item&gt;</span><br><span class="line">  &lt;/el-form&gt;</span><br><span class="line"></span><br><span class="line">  &lt;el-dialog</span><br><span class="line">  title=&quot;温馨提示&quot;</span><br><span class="line">  :visible.sync=&quot;dialogVisible&quot;</span><br><span class="line">  width=&quot;30%&quot;</span><br><span class="line">  :before-close=&quot;handleClose&quot;&gt;</span><br><span class="line">  &lt;span&gt;请输入账号和密码&lt;/span&gt;</span><br><span class="line">  &lt;span slot=&quot;footer&quot; class=&quot;dialog-footer&quot;&gt;</span><br><span class="line">  &lt;el-button type=primary @click=&quot;dialogVisible = false&quot;&gt;确 定&lt;/el-button&gt;</span><br><span class="line">  &lt;/span&gt;</span><br><span class="line">  &lt;/el-dialog&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;login&quot;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      form: &#123;</span><br><span class="line">        username:&#x27;&#x27;,</span><br><span class="line">        password:&#x27;&#x27;</span><br><span class="line">      &#125;,</span><br><span class="line">      rules:&#123;</span><br><span class="line">        username: [</span><br><span class="line">          &#123;required:true,message:&#x27;账号不可为空&#x27;,trigger:&#x27;blur&#x27;&#125;</span><br><span class="line">        ],</span><br><span class="line">        password: [</span><br><span class="line">          &#123;required:true,message:&#x27;密码不可为空&#x27;,trigger:&#x27;blur&#x27;&#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      //对话框显示隐藏</span><br><span class="line">      dialogVisible:false</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    onSubmit(formName) &#123;</span><br><span class="line">      this.$refs[formName].validate((valid)=&gt;&#123;</span><br><span class="line">        if(valid)&#123;</span><br><span class="line">          this.$router.push(&#x27;/hjc&#x27;);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">          this.dialogVisible=true;</span><br><span class="line">          return false;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style lang=&quot;css&quot; scoped&gt;</span><br><span class="line">  .login-box&#123;</span><br><span class="line">    border: 1px solid #DCDFE6;</span><br><span class="line">    width: 350px;</span><br><span class="line">    margin: 180px auto;</span><br><span class="line">    padding: 35px 35px 15px 35px;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    -webkit-border-radius: 5px;</span><br><span class="line">    -moz-border-radius: 5px;</span><br><span class="line">    box-shadow: 0 0 25px #909399;</span><br><span class="line">  &#125;</span><br><span class="line">  .login-title&#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">    margin: 0 auto 40px auto;</span><br><span class="line">    color: #303133;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="首页："><a href="#首页：" class="headerlink" title="首页："></a>首页：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h1&gt;首页&lt;/h1&gt;</span><br><span class="line">  &lt;h2&gt;&#123;&#123;message&#125;&#125;&lt;/h2&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;hjc&quot;,</span><br><span class="line">  data()&#123;</span><br><span class="line">    return&#123;</span><br><span class="line">      message:&quot;hello vue-router&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="路由："><a href="#路由：" class="headerlink" title="路由："></a>路由：</h2><p>router&#x3D;&#x3D;》index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Router</span> <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> hjc <span class="keyword">from</span> <span class="string">&quot;../components/hjc&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">&quot;../components/login&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">Router</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Router</span>(&#123;</span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;hjc&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: hjc</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>:<span class="string">&#x27;/hjc&#x27;</span>,</span><br><span class="line">      <span class="attr">name</span>:<span class="string">&#x27;haojiacheng&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>:hjc</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>:<span class="string">&#x27;/login&#x27;</span>,</span><br><span class="line">      <span class="attr">name</span>:<span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>:login</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="组件："><a href="#组件：" class="headerlink" title="组件："></a>组件：</h2><p>App.vue:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;App&#x27;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">#app &#123;</span><br><span class="line">  font-family: &#x27;Avenir&#x27;, Helvetica, Arial, sans-serif;</span><br><span class="line">  -webkit-font-smoothing: antialiased;</span><br><span class="line">  -moz-osx-font-smoothing: grayscale;</span><br><span class="line">  text-align: center;</span><br><span class="line">  color: #2c3e50;</span><br><span class="line">  margin-top: 60px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="js文件："><a href="#js文件：" class="headerlink" title="js文件："></a>js文件：</h2><p>main.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ElementUI</span> <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;element-ui/lib/theme-chalk/index.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">productionTip</span> = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(router);</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">ElementUI</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  router,</span><br><span class="line">  <span class="attr">render</span>:<span class="function"><span class="params">h</span>=&gt;</span><span class="title function_">h</span>(<span class="title class_">App</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="运行："><a href="#运行：" class="headerlink" title="运行："></a>运行：</h2><p><code>npm run dev</code></p>
+<p><img src="/../assets/1620581011763.png" alt="1620581011763"></p>
+<h1 id="传递参数和重定向"><a href="#传递参数和重定向" class="headerlink" title="传递参数和重定向"></a>传递参数和重定向</h1><p>两种方法皆可传递对象或数组等参数</p>
+<h2 id="一、方法一"><a href="#一、方法一" class="headerlink" title="一、方法一"></a>一、方法一</h2><ol>
+<li><p>页面传递参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-menu-item index=&quot;1-1&quot;&gt;</span><br><span class="line"> &lt;router-link class=&quot;txt-under&quot; :to=&quot;&#123;name:&#x27;profile&#x27;,params:&#123;id:&#x27;1&#x27;&#125;&#125;&quot;&gt;个人信息&lt;/router-link&gt;</span><br><span class="line">&lt;/el-menu-item&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置路由参数接收</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>:<span class="string">&#x27;/hjc&#x27;</span>,</span><br><span class="line">  <span class="attr">name</span>:<span class="string">&#x27;haojiacheng&#x27;</span>,</span><br><span class="line">  <span class="attr">component</span>:hjc,</span><br><span class="line">  <span class="attr">children</span>:[</span><br><span class="line">    &#123;<span class="attr">path</span>:<span class="string">&#x27;/user/profile/:id&#x27;</span>,<span class="attr">name</span>: <span class="string">&#x27;profile&#x27;</span>,<span class="attr">component</span>:profile&#125;,</span><br><span class="line">    &#123;<span class="attr">path</span>:<span class="string">&#x27;/user/list&#x27;</span>,<span class="attr">component</span>:list&#125;,</span><br><span class="line">    &#123;<span class="attr">path</span>:<span class="string">&#x27;/main&#x27;</span>,<span class="attr">component</span>:main&#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>页面获取参数   注意：&#x3D;&#x3D;$route&#x3D;&#x3D;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">&lt;h1&gt;个人信息&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;&#123;&#123;$route.params.id&#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="二、方法二"><a href="#二、方法二" class="headerlink" title="二、方法二"></a>二、方法二</h2><ol>
+<li><p>开启props</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">path</span>:<span class="string">&#x27;/user/profile/:id&#x27;</span>,<span class="attr">name</span>: <span class="string">&#x27;profile&#x27;</span>,<span class="attr">component</span>:profile,<span class="attr">props</span>:<span class="literal">true</span>&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传递参数（对象 student）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link class=&quot;txt-under&quot; :to=&quot;&#123;name:&#x27;profile&#x27;,params:&#123;id:&#x27;1&#x27;,student:student&#125;&#125;&quot;&gt;个人信息&lt;/router-link&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接收参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h1&gt;个人信息&lt;/h1&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123;$route.params.id&#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &lt;li v-for=&quot;item of student&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;profile&quot;,</span><br><span class="line">  props:&#123;</span><br><span class="line">    student:&#123;</span><br><span class="line">      name:&#x27;&#x27;,</span><br><span class="line">      age:&#x27;&#x27;,</span><br><span class="line">      phone:&#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="路由模式"><a href="#路由模式" class="headerlink" title="路由模式"></a>路由模式</h2><p>路由模式有两种</p>
+<ul>
+<li>hash：路径带 # 号，如<a target="_blank" rel="noopener" href="http://localhost:8080/#/login">http://localhost:8080/#/login</a></li>
+<li>history: 路径不带 # 号，如<a target="_blank" rel="noopener" href="http://localhost:8080/login">http://localhost:8080/login</a></li>
+</ul>
+<p>修改路由配置，代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Router</span>(&#123;</span><br><span class="line"><span class="attr">mode</span>:<span class="string">&#x27;history&#x27;</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="404"><a href="#404" class="headerlink" title="404"></a>404</h2><p><strong>处理404</strong>创建一个名为<code>NotFound.vue</code> 的视图组件，代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h1&gt;您访问的页面不存在！&lt;/h1&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;NotFound&quot;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>配置路由  index.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>:<span class="string">&#x27;*&#x27;</span>,</span><br><span class="line">  <span class="attr">component</span>:<span class="title class_">NotFound</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="路由钩子与异步请求"><a href="#路由钩子与异步请求" class="headerlink" title="路由钩子与异步请求"></a>路由钩子与异步请求</h2><p>beforeRouterEnter： 在进入路由前执行</p>
+<p>beforeRouterLeave： 在离开路由前执行</p>
+<p>上代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">beforeRouteEnter</span>:<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>)=&gt;</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;进入路由之前&quot;</span>);</span><br><span class="line"><span class="title function_">next</span>(<span class="function"><span class="params">vm</span> =&gt;</span> &#123;</span><br><span class="line">  vm.<span class="title function_">getData</span>()</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#125;,</span><br><span class="line"><span class="attr">beforeRouteLeave</span>:<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>)=&gt;</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;进入路由之后&quot;</span>);</span><br><span class="line"><span class="title function_">next</span>();</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li>to：路由将要跳转的路径信息</li>
+<li>from：路径跳转前的路径信息</li>
+<li>next：路由的控制参数<ul>
+<li>next（）跳入下一个页面</li>
+<li>next（’&#x2F;path’）改变路由的跳转方向</li>
+<li>next（false）返回原来的页面</li>
+<li>next（vm&#x3D;&gt;{}）仅在beforeRouteEnter中可用，vm是组件实例</li>
+</ul>
+</li>
+</ul>
+<p><strong>在钩子函数中使用异步请求</strong></p>
+<ol>
+<li><p>安装axios vue-axios    <code>cnpm install --save axios vue-axios</code></p>
+</li>
+<li><p>main.js 引用Axios</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueAxios</span> <span class="keyword">from</span> <span class="string">&#x27;vue-axios&#x27;</span>;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueAxios</span>,axios);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在beforeRouteEnter中进行异步请求</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">methods</span>:&#123;</span><br><span class="line"><span class="attr">getData</span>:<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">axios</span>(&#123;</span><br><span class="line">    <span class="attr">method</span>:<span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">    <span class="attr">url</span>:<span class="string">&#x27;http://localhost:8080/static/mock/data.json&#x27;</span></span><br><span class="line">  &#125;).<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入json文件，放入static下的mock中  data.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="string">&quot;狂神说java&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://baidu.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;page&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;isNonProfit&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;address&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;street&quot;</span><span class="punctuation">:</span> <span class="string">&quot;含光门&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;city&quot;</span><span class="punctuation">:</span><span class="string">&quot;陕西西安&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;country&quot;</span><span class="punctuation">:</span> <span class="string">&quot;中国&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;links&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;B站&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://www.bilibili.com/&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;4399&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://www.4399.com/&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;百度&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://www.baidu.com/&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>npm run dev  运行访问结果如下：<br><img src="/../assets/1620619140254.png" alt="1620619140254"></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suyiharris.github.io/2023/10/24/2023-10-24-vue-Router/" data-id="clo4ezpg1000h00o93y4d9gtu" data-title="vue-Router" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/24/2023-10-24-springboot%E6%95%B4%E5%90%88jpa/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          springboot整合jpa
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/24/2023-10-24-vue-axios/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">vue-axios</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Git%E5%AD%A6%E4%B9%A0/">2023-10-24-Git学习</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Jwt%E7%9A%84%E9%89%B4%E6%9D%83%E7%99%BB%E5%BD%95-%E6%8B%A6%E6%88%AA%E5%99%A8-%E6%B3%A8%E5%86%8C%E6%8B%A6%E6%88%AA%E5%99%A8/">Jwt的鉴权登录-拦截器-注册拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Linux%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2SpringBoot%E9%A1%B9%E7%9B%AE/">Linux系统部署SpringBoot项目</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-SVN%E5%AD%A6%E4%B9%A0/">SVN学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 SuYi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>mybatis动态SQL | 苏弋的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="介绍  什么是动态SQL：动态SQL指的是根据不同的查询条件 , 生成不同的Sql语句. 1234567891011官网描述：MyBatis 的强大特性之一便是它的动态 SQL。如果你有使用 JDBC 或其它类似框架的经验，你就能体会到根据不同条件拼接 SQL 语句的痛苦。例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL 这一特性可以彻底摆脱这种痛苦。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis动态SQL">
+<meta property="og:url" content="https://suyiharris.github.io/2023/10/24/2023-10-24-mybatis%E5%8A%A8%E6%80%81SQL/index.html">
+<meta property="og:site_name" content="苏弋的博客">
+<meta property="og:description" content="介绍  什么是动态SQL：动态SQL指的是根据不同的查询条件 , 生成不同的Sql语句. 1234567891011官网描述：MyBatis 的强大特性之一便是它的动态 SQL。如果你有使用 JDBC 或其它类似框架的经验，你就能体会到根据不同条件拼接 SQL 语句的痛苦。例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL 这一特性可以彻底摆脱这种痛苦。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6537cae2c458853aef56d32e.jpg">
+<meta property="article:published_time" content="2023-10-24T04:12:12.000Z">
+<meta property="article:modified_time" content="2023-10-24T13:47:33.116Z">
+<meta property="article:author" content="SuYi">
+<meta property="article:tag" content="SuYi, Blog, Harris">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/6537cae2c458853aef56d32e.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="苏弋的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">苏弋的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">There is no one around me who is you, but there is no one who is not you.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suyiharris.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2023-10-24-mybatis动态SQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/24/2023-10-24-mybatis%E5%8A%A8%E6%80%81SQL/" class="article-date">
+  <time class="dt-published" datetime="2023-10-24T04:12:12.000Z" itemprop="datePublished">2023-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      mybatis动态SQL
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>介绍</p>
+</blockquote>
+<p>什么是动态SQL：<strong>动态SQL指的是根据不同的查询条件 , 生成不同的Sql语句.</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">官网描述：</span><br><span class="line">MyBatis 的强大特性之一便是它的动态 SQL。如果你有使用 JDBC 或其它类似框架的经验，你就能体会到根据不同条件拼接 SQL 语句的痛苦。例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL 这一特性可以彻底摆脱这种痛苦。</span><br><span class="line">虽然在以前使用动态 SQL 并非一件易事，但正是 MyBatis 提供了可以被用在任意 SQL 映射语句中的强大的动态 SQL 语言得以改进这种情形。</span><br><span class="line">动态 SQL 元素和 JSTL 或基于类似 XML 的文本处理器相似。在 MyBatis 之前的版本中，有很多元素需要花时间了解。MyBatis 3 大大精简了元素种类，现在只需学习原来一半的元素便可。MyBatis 采用功能强大的基于 OGNL 的表达式来淘汰其它大部分元素。</span><br><span class="line"></span><br><span class="line">  -------------------------------</span><br><span class="line">  - if</span><br><span class="line">  - choose (when, otherwise)</span><br><span class="line">  - trim (where, set)</span><br><span class="line">  - foreach</span><br><span class="line">  -------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>我们之前写的 SQL 语句都比较简单，如果有比较复杂的业务，我们需要写复杂的 SQL 语句，往往需要拼接，而拼接 SQL ，稍微不注意，由于引号，空格等缺失可能都会导致错误。</p>
+<p>那么怎么去解决这个问题呢？这就要使用 mybatis 动态SQL，通过 if, choose, when, otherwise, trim, where, set, foreach等标签，可组合成非常灵活的SQL语句，从而在提高 SQL 语句的准确性的同时，也大大提高了开发人员的效率。</p>
+<blockquote>
+<p>搭建环境</p>
+</blockquote>
+<p><strong>新建一个数据库表：blog</strong></p>
+<p>字段：id，title，author，create_time，views</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `blog` (</span><br><span class="line">`id` <span class="type">varchar</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;博客id&#x27;</span>,</span><br><span class="line">`title` <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;博客标题&#x27;</span>,</span><br><span class="line">`author` <span class="type">varchar</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;博客作者&#x27;</span>,</span><br><span class="line">`create_time` datetime <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;创建时间&#x27;</span>,</span><br><span class="line">`views` <span class="type">int</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;浏览量&#x27;</span></span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8</span><br></pre></td></tr></table></figure>
+
+<p>1、创建Mybatis基础工程</p>
+<p><img src="https://pic.imgdb.cn/item/6537cae2c458853aef56d32e.jpg" alt="创建Mybatis基础工程"></p>
+<p>2、IDutil工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">IDUtil</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">genId</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> UUID.randomUUID().toString().replaceAll(<span class="string">&quot;-&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、实体类编写  【注意set方法作用】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Blog</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> String id;</span><br><span class="line">   <span class="keyword">private</span> String title;</span><br><span class="line">   <span class="keyword">private</span> String author;</span><br><span class="line">   <span class="keyword">private</span> Date createTime;</span><br><span class="line">   <span class="keyword">private</span> <span class="type">int</span> views;</span><br><span class="line">   <span class="comment">//set，get....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、编写Mapper接口及xml文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BlogMapper</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">mapper</span></span></span><br><span class="line"><span class="meta">       <span class="keyword">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">       <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.kuang.mapper.BlogMapper&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>5、mybatis核心配置文件，下划线驼峰自动转换</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;mapUnderscoreToCamelCase&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;logImpl&quot;</span> <span class="attr">value</span>=<span class="string">&quot;STDOUT_LOGGING&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--注册Mapper.xml--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper/BlogMapper.xml&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>6、插入初始数据</p>
+<p>编写接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//新增一个博客</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">addBlog</span><span class="params">(Blog blog)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>sql配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;addBlog&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;blog&quot;</span>&gt;</span></span><br><span class="line">  insert into blog (id, title, author, create_time, views)</span><br><span class="line">  values (#&#123;id&#125;,#&#123;title&#125;,#&#123;author&#125;,#&#123;createTime&#125;,#&#123;views&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>初始化博客方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInitBlog</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">SqlSession</span> <span class="variable">session</span> <span class="operator">=</span> MybatisUtils.getSession();</span><br><span class="line">   <span class="type">BlogMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> session.getMapper(BlogMapper.class);</span><br><span class="line"></span><br><span class="line">   <span class="type">Blog</span> <span class="variable">blog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Blog</span>();</span><br><span class="line">   blog.setId(IDUtil.genId());</span><br><span class="line">   blog.setTitle(<span class="string">&quot;Mybatis如此简单&quot;</span>);</span><br><span class="line">   blog.setAuthor(<span class="string">&quot;狂神说&quot;</span>);</span><br><span class="line">   blog.setCreateTime(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">   blog.setViews(<span class="number">9999</span>);</span><br><span class="line"></span><br><span class="line">   mapper.addBlog(blog);</span><br><span class="line"></span><br><span class="line">   blog.setId(IDUtil.genId());</span><br><span class="line">   blog.setTitle(<span class="string">&quot;Java如此简单&quot;</span>);</span><br><span class="line">   mapper.addBlog(blog);</span><br><span class="line"></span><br><span class="line">   blog.setId(IDUtil.genId());</span><br><span class="line">   blog.setTitle(<span class="string">&quot;Spring如此简单&quot;</span>);</span><br><span class="line">   mapper.addBlog(blog);</span><br><span class="line"></span><br><span class="line">   blog.setId(IDUtil.genId());</span><br><span class="line">   blog.setTitle(<span class="string">&quot;微服务如此简单&quot;</span>);</span><br><span class="line">   mapper.addBlog(blog);</span><br><span class="line"></span><br><span class="line">   session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>初始化数据完毕！</p>
+<blockquote>
+<p>if 语句</p>
+</blockquote>
+<p><strong>需求：根据作者名字和博客名字来查询博客！如果作者名字为空，那么只根据博客名字查询，反之，则根据作者名来查询</strong></p>
+<p>1、编写接口类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需求1</span></span><br><span class="line">List&lt;Blog&gt; <span class="title function_">queryBlogIf</span><span class="params">(Map map)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2、编写SQL语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--需求1：</span></span><br><span class="line"><span class="comment">根据作者名字和博客名字来查询博客！</span></span><br><span class="line"><span class="comment">如果作者名字为空，那么只根据博客名字查询，反之，则根据作者名来查询</span></span><br><span class="line"><span class="comment">select * from blog where title = #&#123;title&#125; and author = #&#123;author&#125;</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;queryBlogIf&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;map&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;blog&quot;</span>&gt;</span></span><br><span class="line">  select * from blog where</span><br><span class="line">   <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;title != null&quot;</span>&gt;</span></span><br><span class="line">      title = #&#123;title&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;author != null&quot;</span>&gt;</span></span><br><span class="line">      and author = #&#123;author&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3、测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testQueryBlogIf</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">SqlSession</span> <span class="variable">session</span> <span class="operator">=</span> MybatisUtils.getSession();</span><br><span class="line">   <span class="type">BlogMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> session.getMapper(BlogMapper.class);</span><br><span class="line"></span><br><span class="line">   HashMap&lt;String, String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, String&gt;();</span><br><span class="line">   map.put(<span class="string">&quot;title&quot;</span>,<span class="string">&quot;Mybatis如此简单&quot;</span>);</span><br><span class="line">   map.put(<span class="string">&quot;author&quot;</span>,<span class="string">&quot;狂神说&quot;</span>);</span><br><span class="line">   List&lt;Blog&gt; blogs = mapper.queryBlogIf(map);</span><br><span class="line"></span><br><span class="line">   System.out.println(blogs);</span><br><span class="line"></span><br><span class="line">   session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样写我们可以看到，如果 author 等于 null，那么查询语句为 select * from user where title&#x3D;#{title},但是如果title为空呢？那么查询语句为 select * from user where and author&#x3D;#{author}，这是错误的 SQL 语句，如何解决呢？请看下面的 where 语句！</p>
+<blockquote>
+<p>Where</p>
+</blockquote>
+<p>修改上面的SQL语句；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;queryBlogIf&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;map&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;blog&quot;</span>&gt;</span></span><br><span class="line">  select * from blog</span><br><span class="line">   <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;title != null&quot;</span>&gt;</span></span><br><span class="line">          title = #&#123;title&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;author != null&quot;</span>&gt;</span></span><br><span class="line">          and author = #&#123;author&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个“where”标签会知道如果它包含的标签中有返回值的话，它就插入一个‘where’。此外，如果标签返回的内容是以AND 或OR 开头的，则它会剔除掉。</p>
+<blockquote>
+<p>Set</p>
+</blockquote>
+<p>同理，上面的对于查询 SQL 语句包含 where 关键字，如果在进行更新操作的时候，含有 set 关键词，我们怎么处理呢？</p>
+<p>1、编写接口方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">updateBlog</span><span class="params">(Map map)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2、sql配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注意set是用的逗号隔开--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">&quot;updateBlog&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;map&quot;</span>&gt;</span></span><br><span class="line">  update blog</span><br><span class="line">     <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;title != null&quot;</span>&gt;</span></span><br><span class="line">            title = #&#123;title&#125;,</span><br><span class="line">         <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;author != null&quot;</span>&gt;</span></span><br><span class="line">            author = #&#123;author&#125;</span><br><span class="line">         <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">  where id = #&#123;id&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3、测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testUpdateBlog</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">SqlSession</span> <span class="variable">session</span> <span class="operator">=</span> MybatisUtils.getSession();</span><br><span class="line">   <span class="type">BlogMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> session.getMapper(BlogMapper.class);</span><br><span class="line"></span><br><span class="line">   HashMap&lt;String, String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, String&gt;();</span><br><span class="line">   map.put(<span class="string">&quot;title&quot;</span>,<span class="string">&quot;动态SQL&quot;</span>);</span><br><span class="line">   map.put(<span class="string">&quot;author&quot;</span>,<span class="string">&quot;秦疆&quot;</span>);</span><br><span class="line">   map.put(<span class="string">&quot;id&quot;</span>,<span class="string">&quot;9d6a763f5e1347cebda43e2a32687a77&quot;</span>);</span><br><span class="line"></span><br><span class="line">   mapper.updateBlog(map);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>choose语句</p>
+</blockquote>
+<p>有时候，我们不想用到所有的查询条件，只想选择其中的一个，查询条件有一个满足即可，使用 choose 标签可以解决此类问题，类似于 Java 的 switch 语句</p>
+<p>1、编写接口方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Blog&gt; <span class="title function_">queryBlogChoose</span><span class="params">(Map map)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2、sql配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;queryBlogChoose&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;map&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;blog&quot;</span>&gt;</span></span><br><span class="line">  select * from blog</span><br><span class="line">   <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">&quot;title != null&quot;</span>&gt;</span></span><br><span class="line">                title = #&#123;title&#125;</span><br><span class="line">           <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">&quot;author != null&quot;</span>&gt;</span></span><br><span class="line">              and author = #&#123;author&#125;</span><br><span class="line">           <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">              and views = #&#123;views&#125;</span><br><span class="line">           <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3、测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testQueryBlogChoose</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">SqlSession</span> <span class="variable">session</span> <span class="operator">=</span> MybatisUtils.getSession();</span><br><span class="line">   <span class="type">BlogMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> session.getMapper(BlogMapper.class);</span><br><span class="line"></span><br><span class="line">   HashMap&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Object&gt;();</span><br><span class="line">   map.put(<span class="string">&quot;title&quot;</span>,<span class="string">&quot;Java如此简单&quot;</span>);</span><br><span class="line">   map.put(<span class="string">&quot;author&quot;</span>,<span class="string">&quot;狂神说&quot;</span>);</span><br><span class="line">   map.put(<span class="string">&quot;views&quot;</span>,<span class="number">9999</span>);</span><br><span class="line">   List&lt;Blog&gt; blogs = mapper.queryBlogChoose(map);</span><br><span class="line"></span><br><span class="line">   System.out.println(blogs);</span><br><span class="line"></span><br><span class="line">   session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>SQL片段</p>
+</blockquote>
+<p>有时候可能某个 sql 语句我们用的特别多，为了增加代码的重用性，简化代码，我们需要将这些代码抽取出来，然后使用时直接调用。</p>
+<p><strong>提取SQL片段：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;if-title-author&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;title != null&quot;</span>&gt;</span></span><br><span class="line">      title = #&#123;title&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;author != null&quot;</span>&gt;</span></span><br><span class="line">      and author = #&#123;author&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>引用SQL片段：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;queryBlogIf&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;map&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;blog&quot;</span>&gt;</span></span><br><span class="line">  select * from blog</span><br><span class="line">   <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">&quot;if-title-author&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 在这里还可以引用其他的 sql 片段 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<p>①、最好基于 单表来定义 sql 片段，提高片段的可重用性</p>
+<p>②、在 sql 片段中不要包括 where</p>
+<blockquote>
+<p>Foreach</p>
+</blockquote>
+<p>将数据库中前三个数据的id修改为1,2,3；</p>
+<p>需求：我们需要查询 blog 表中 id 分别为1,2,3的博客信息</p>
+<p>1、编写接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Blog&gt; <span class="title function_">queryBlogForeach</span><span class="params">(Map map)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2、编写SQL语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;queryBlogForeach&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;map&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;blog&quot;</span>&gt;</span></span><br><span class="line">  select * from blog</span><br><span class="line">   <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">       collection:指定输入对象中的集合属性</span></span><br><span class="line"><span class="comment">       item:每次遍历生成的对象</span></span><br><span class="line"><span class="comment">       open:开始遍历时的拼接字符串</span></span><br><span class="line"><span class="comment">       close:结束时拼接的字符串</span></span><br><span class="line"><span class="comment">       separator:遍历对象之间需要拼接的字符串</span></span><br><span class="line"><span class="comment">       select * from blog where 1=1 and (id=1 or id=2 or id=3)</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;ids&quot;</span>  <span class="attr">item</span>=<span class="string">&quot;id&quot;</span> <span class="attr">open</span>=<span class="string">&quot;and (&quot;</span> <span class="attr">close</span>=<span class="string">&quot;)&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;or&quot;</span>&gt;</span></span><br><span class="line">          id=#&#123;id&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3、测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testQueryBlogForeach</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">SqlSession</span> <span class="variable">session</span> <span class="operator">=</span> MybatisUtils.getSession();</span><br><span class="line">   <span class="type">BlogMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> session.getMapper(BlogMapper.class);</span><br><span class="line"></span><br><span class="line">   <span class="type">HashMap</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">   List&lt;Integer&gt; ids = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">   ids.add(<span class="number">1</span>);</span><br><span class="line">   ids.add(<span class="number">2</span>);</span><br><span class="line">   ids.add(<span class="number">3</span>);</span><br><span class="line">   map.put(<span class="string">&quot;ids&quot;</span>,ids);</span><br><span class="line"></span><br><span class="line">   List&lt;Blog&gt; blogs = mapper.queryBlogForeach(map);</span><br><span class="line"></span><br><span class="line">   System.out.println(blogs);</span><br><span class="line"></span><br><span class="line">   session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>小结：其实动态 sql 语句的编写往往就是一个拼接的问题，为了保证拼接准确，我们最好首先要写原生的 sql 语句出来，然后在通过 mybatis 动态sql 对照着改，防止出错。多在实践中使用才是熟练掌握它的技巧。</p>
+<p>​                                                               动态SQL在开发中大量的使用，一定要熟练掌握！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suyiharris.github.io/2023/10/24/2023-10-24-mybatis%E5%8A%A8%E6%80%81SQL/" data-id="clo4ezpfu000e00o9a0pt76it" data-title="mybatis动态SQL" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/24/2023-10-24-mybatis%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B(maven%E7%89%88)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          mybatis逆向工程(maven版)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/24/2023-10-24-spring-mybatis%E6%95%B4%E5%90%88%E6%96%B9%E5%BC%8F%E4%B8%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">spring-mybatis整合方式一</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Git%E5%AD%A6%E4%B9%A0/">2023-10-24-Git学习</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Jwt%E7%9A%84%E9%89%B4%E6%9D%83%E7%99%BB%E5%BD%95-%E6%8B%A6%E6%88%AA%E5%99%A8-%E6%B3%A8%E5%86%8C%E6%8B%A6%E6%88%AA%E5%99%A8/">Jwt的鉴权登录-拦截器-注册拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Linux%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2SpringBoot%E9%A1%B9%E7%9B%AE/">Linux系统部署SpringBoot项目</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-SVN%E5%AD%A6%E4%B9%A0/">SVN学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 SuYi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

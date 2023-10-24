@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>SpringDataJpa学习笔记 | 苏弋的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SpringDataJpa学习笔记一、xml配置方法1、sql脚本123456789101112create DATABASE if not exists springdata_jpaDEFAULT CHARACTER set utf8;use springdata_jpa;create table customer(id int auto_increment PRIMARY KEY,cust_n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringDataJpa学习笔记">
+<meta property="og:url" content="https://suyiharris.github.io/2023/10/24/2023-10-24-SpringDataJpa%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="苏弋的博客">
+<meta property="og:description" content="SpringDataJpa学习笔记一、xml配置方法1、sql脚本123456789101112create DATABASE if not exists springdata_jpaDEFAULT CHARACTER set utf8;use springdata_jpa;create table customer(id int auto_increment PRIMARY KEY,cust_n">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://suyiharris.github.io/assets/1695644170139.png">
+<meta property="article:published_time" content="2023-10-24T04:12:12.000Z">
+<meta property="article:modified_time" content="2023-10-24T13:23:31.391Z">
+<meta property="article:author" content="SuYi">
+<meta property="article:tag" content="SuYi, Blog, Harris">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://suyiharris.github.io/assets/1695644170139.png">
+  
+    <link rel="alternate" href="/atom.xml" title="苏弋的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">苏弋的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">There is no one around me who is you, but there is no one who is not you.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suyiharris.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2023-10-24-SpringDataJpa学习笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/24/2023-10-24-SpringDataJpa%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2023-10-24T04:12:12.000Z" itemprop="datePublished">2023-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SpringDataJpa学习笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringDataJpa学习笔记"><a href="#SpringDataJpa学习笔记" class="headerlink" title="SpringDataJpa学习笔记"></a>SpringDataJpa学习笔记</h1><h2 id="一、xml配置方法"><a href="#一、xml配置方法" class="headerlink" title="一、xml配置方法"></a>一、xml配置方法</h2><h3 id="1、sql脚本"><a href="#1、sql脚本" class="headerlink" title="1、sql脚本"></a>1、sql脚本</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> DATABASE if <span class="keyword">not</span> <span class="keyword">exists</span> springdata_jpa</span><br><span class="line"><span class="keyword">DEFAULT</span> <span class="type">CHARACTER</span> <span class="keyword">set</span> utf8;</span><br><span class="line"></span><br><span class="line">use springdata_jpa;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> customer(</span><br><span class="line">id <span class="type">int</span> auto_increment <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">cust_name <span class="type">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">cust_address <span class="type">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">DEFAULT</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> customer(cust_name,cust_address)<span class="keyword">VALUES</span>(<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;陕西省西安市长安区滦镇街道&#x27;</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> customer;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、导入pom依赖"><a href="#2、导入pom依赖" class="headerlink" title="2、导入pom依赖"></a>2、导入pom依赖</h3><p>父项目</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--统一管理springdata子项目的版本--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-bom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2021.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>子模块</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.hibernate<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hibernate-entitymanager<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.4.32.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.47<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、编写实体类pojo"><a href="#3、编写实体类pojo" class="headerlink" title="3、编写实体类pojo"></a>3、编写实体类pojo</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc.pojo;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.persistence.*;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;customer&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Customer</span> &#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="meta">@Column(name = &quot;id&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Long custId;<span class="comment">//客户Id</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column(name = &quot;cust_name&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String custName;<span class="comment">//客户名称</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column(name = &quot;cust_address&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String custAddress;<span class="comment">//客户地址</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Customer&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;custId=&quot;</span> + custId +</span><br><span class="line">                <span class="string">&quot;, custName=&#x27;&quot;</span> + custName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, custAddress=&#x27;&quot;</span> + custAddress + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Long <span class="title function_">getCustId</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> custId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCustId</span><span class="params">(Long custId)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.custId = custId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getCustName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> custName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCustName</span><span class="params">(String custName)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.custName = custName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getCustAddress</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> custAddress;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCustAddress</span><span class="params">(String custAddress)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.custAddress = custAddress;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Customer</span><span class="params">(Long custId, String custName, String custAddress)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.custId = custId;</span><br><span class="line">        <span class="built_in">this</span>.custName = custName;</span><br><span class="line">        <span class="built_in">this</span>.custAddress = custAddress;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Customer</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、dao层（repositories）"><a href="#4、dao层（repositories）" class="headerlink" title="4、dao层（repositories）"></a>4、dao层（repositories）</h3><p>CustomerRepository.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc.repositories;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc.pojo.Customer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.repository.CrudRepository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CustomerRepository</span> <span class="keyword">extends</span> <span class="title class_">CrudRepository</span>&lt;Customer,Long&gt; &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、spring配置文件"><a href="#5、spring配置文件" class="headerlink" title="5、spring配置文件"></a>5、spring配置文件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:jpa</span>=<span class="string">&quot;http://www.springframework.org/schema/data/jpa&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/tx</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/tx/spring-tx.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/data/jpa</span></span></span><br><span class="line"><span class="string"><span class="tag">       https://www.springframework.org/schema/data/jpa/spring-jpa.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--用于整合jpa  @EnableJpaRepositories--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jpa:repositories</span> <span class="attr">base-package</span>=<span class="string">&quot;com.hjc.repositories&quot;</span></span></span><br><span class="line"><span class="tag">                      <span class="attr">entity-manager-factory-ref</span>=<span class="string">&quot;entityManagerFactory&quot;</span></span></span><br><span class="line"><span class="tag">                      <span class="attr">transaction-manager-ref</span>=<span class="string">&quot;jpaTransactionManager&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--entityManagerFactory--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;entityManagerFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jpaVendorAdapter&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;generateDdl&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;showSql&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--设置实体类的包--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;packagesToScan&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.hjc.pojo&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--设置数据源  ref导入--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--德鲁伊数据源--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;com.alibaba.druid.pool.DruidDataSource&quot;</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClassName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/springdata_jpa?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=utf8<span class="symbol">&amp;amp;</span>zeroDateTimeBehavior=convertToNull<span class="symbol">&amp;amp;</span>useSSL=true<span class="symbol">&amp;amp;</span>serverTimezone=GMT%2B8&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;123456&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--声明式事务--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;jpaTransactionManager&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.orm.jpa.JpaTransactionManager&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;entityManagerFactory&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;entityManagerFactory&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--注解驱动--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">&quot;jpaTransactionManager&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6、测试CRUD"><a href="#6、测试CRUD" class="headerlink" title="6、测试CRUD"></a>6、测试CRUD</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hjc.config.SpringDataJPAConfig;</span><br><span class="line"><span class="keyword">import</span> com.hjc.pojo.Customer;</span><br><span class="line"><span class="keyword">import</span> com.hjc.repositories.CustomerRepository;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.ContextConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringJUnit4ClassRunner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Optional;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ContextConfiguration(&quot;classpath:spring.xml&quot;)</span></span><br><span class="line"><span class="comment">//@ContextConfiguration(classes = SpringDataJPAConfig.class)</span></span><br><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">springdatajpatest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    CustomerRepository customerRepository;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//查</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">mytest</span><span class="params">()</span>&#123;</span><br><span class="line">        Optional&lt;Customer&gt; byId = customerRepository.findById(<span class="number">1L</span>);</span><br><span class="line">        System.out.println(byId.get());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//增</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Customer</span> <span class="variable">customer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Customer</span>();</span><br><span class="line">        customer.setCustName(<span class="string">&quot;王五&quot;</span>);</span><br><span class="line">        customer.setCustAddress(<span class="string">&quot;kjahsdkanklsjdas&quot;</span>);</span><br><span class="line">        <span class="type">Customer</span> <span class="variable">save</span> <span class="operator">=</span> customerRepository.save(customer);</span><br><span class="line">        System.out.println(save);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//改</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Customer</span> <span class="variable">customer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Customer</span>();</span><br><span class="line">        customer.setCustId(<span class="number">2L</span>);</span><br><span class="line">        customer.setCustName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        customer.setCustAddress(<span class="string">&quot;北京市海定区update&quot;</span>);</span><br><span class="line">        <span class="type">Customer</span> <span class="variable">save</span> <span class="operator">=</span> customerRepository.save(customer);</span><br><span class="line">        System.out.println(save);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findAll</span><span class="params">()</span>&#123;</span><br><span class="line">        Iterable&lt;Customer&gt; all = customerRepository.findAll();</span><br><span class="line">        System.out.println(all);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//删</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">delete</span><span class="params">()</span>&#123;</span><br><span class="line">        customerRepository.deleteById(<span class="number">3L</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、javaConfig方式"><a href="#二、javaConfig方式" class="headerlink" title="二、javaConfig方式"></a>二、javaConfig方式</h2><p>同上至第四步</p>
+<h3 id="4、Java配置文件"><a href="#4、Java配置文件" class="headerlink" title="4、Java配置文件"></a>4、Java配置文件</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hjc.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.jpa.repository.config.EnableJpaRepositories;</span><br><span class="line"><span class="keyword">import</span> org.springframework.orm.jpa.JpaTransactionManager;</span><br><span class="line"><span class="keyword">import</span> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.transaction.PlatformTransactionManager;</span><br><span class="line"><span class="keyword">import</span> org.springframework.transaction.annotation.EnableTransactionManagement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.persistence.EntityManagerFactory;</span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableJpaRepositories(basePackages = &quot;com.hjc.repositories&quot;)</span></span><br><span class="line"><span class="meta">@EnableTransactionManagement</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringDataJPAConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> DataSource <span class="title function_">dataSource</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">DruidDataSource</span> <span class="variable">dataSource</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DruidDataSource</span>();</span><br><span class="line">        dataSource.setDriverClassName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">        dataSource.setUrl(<span class="string">&quot;jdbc:mysql://localhost:3306/springdata_jpa?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;zeroDateTimeBehavior=convertToNull&amp;amp;useSSL=true&amp;amp;serverTimezone=GMT%2B8&quot;</span>);</span><br><span class="line">        dataSource.setUsername(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">        dataSource.setPassword(<span class="string">&quot;123456&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法名必须是entityManagerFactory()</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> LocalContainerEntityManagerFactoryBean <span class="title function_">entityManagerFactory</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">HibernateJpaVendorAdapter</span> <span class="variable">vendorAdapter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HibernateJpaVendorAdapter</span>();</span><br><span class="line">        vendorAdapter.setGenerateDdl(<span class="literal">true</span>);</span><br><span class="line">        vendorAdapter.setShowSql(<span class="literal">true</span>);</span><br><span class="line">        <span class="type">LocalContainerEntityManagerFactoryBean</span> <span class="variable">factoryBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LocalContainerEntityManagerFactoryBean</span>();</span><br><span class="line">        factoryBean.setJpaVendorAdapter(vendorAdapter);</span><br><span class="line">        factoryBean.setPackagesToScan(<span class="string">&quot;com.hjc.pojo&quot;</span>);</span><br><span class="line">        factoryBean.setDataSource(dataSource());</span><br><span class="line">        <span class="keyword">return</span> factoryBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> PlatformTransactionManager <span class="title function_">transactionManager</span><span class="params">(EntityManagerFactory entityManagerFactory)</span>&#123;</span><br><span class="line">        <span class="type">JpaTransactionManager</span> <span class="variable">txManager</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JpaTransactionManager</span>();</span><br><span class="line">        txManager.setEntityManagerFactory(entityManagerFactory);</span><br><span class="line">        <span class="keyword">return</span> txManager;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、测试"><a href="#5、测试" class="headerlink" title="5、测试"></a>5、测试</h3><p>代码不变，把类上的<code>@ContextConfiguration(&quot;classpath:spring.xml&quot;)</code></p>
+<p>改成<code>@ContextConfiguration(classes = SpringDataJPAConfig.class)</code></p>
+<p>即可</p>
+<h2 id="三、项目结构截图："><a href="#三、项目结构截图：" class="headerlink" title="三、项目结构截图："></a>三、项目结构截图：</h2><p><img src="/../assets/1695644170139.png" alt="1695644170139"></p>
+<h2 id="四、需要注意的问题，也是我出现了bug的地方"><a href="#四、需要注意的问题，也是我出现了bug的地方" class="headerlink" title="四、需要注意的问题，也是我出现了bug的地方"></a>四、需要注意的问题，也是我出现了bug的地方</h2><p>在Javaconfig配置方式中</p>
+<p>方法名：<code>entityManagerFactory()</code>不能改变</p>
+<p>方法名必须是<code>entityManagerFactory()</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suyiharris.github.io/2023/10/24/2023-10-24-SpringDataJpa%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="clo4ezpfo000700o91uxbd13p" data-title="SpringDataJpa学习笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/24/2023-10-24-SpringBoot%E7%9A%84application%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          SpringBoot的application常用配置
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/24/2023-10-24-Thymeleaf%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Thymeleaf实战指南</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Git%E5%AD%A6%E4%B9%A0/">2023-10-24-Git学习</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Jwt%E7%9A%84%E9%89%B4%E6%9D%83%E7%99%BB%E5%BD%95-%E6%8B%A6%E6%88%AA%E5%99%A8-%E6%B3%A8%E5%86%8C%E6%8B%A6%E6%88%AA%E5%99%A8/">Jwt的鉴权登录-拦截器-注册拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Linux%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2SpringBoot%E9%A1%B9%E7%9B%AE/">Linux系统部署SpringBoot项目</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-SVN%E5%AD%A6%E4%B9%A0/">SVN学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 SuYi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

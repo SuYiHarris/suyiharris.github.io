@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Vue中 Runtime + Compiler 和 Runtime-only 两种模式含义和区别 | 苏弋的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一、问题描述在使用 vue-cli 脚手架构建项目时，会遇到一个构建选项 Vue build，有两个选择，Runtime + Compiler 和 Runtime-only ，如图所示    Runtime + Compiler: recommended for most users 运行程序+编译器：推荐给大多数用户 Runtime-only: about 6KB lighter min+gzi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue中 Runtime + Compiler 和 Runtime-only 两种模式含义和区别">
+<meta property="og:url" content="https://suyiharris.github.io/2023/10/24/2023-10-24-Vue%E4%B8%AD%20Runtime%20+%20Compiler%20%E5%92%8C%20Runtime-only%20%E4%B8%A4%E7%A7%8D%E6%A8%A1%E5%BC%8F%E5%90%AB%E4%B9%89%E5%92%8C%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:site_name" content="苏弋的博客">
+<meta property="og:description" content="一、问题描述在使用 vue-cli 脚手架构建项目时，会遇到一个构建选项 Vue build，有两个选择，Runtime + Compiler 和 Runtime-only ，如图所示    Runtime + Compiler: recommended for most users 运行程序+编译器：推荐给大多数用户 Runtime-only: about 6KB lighter min+gzi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6537c96cc458853aef50b990.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6537c993c458853aef515e70.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6537c9a2c458853aef51974c.jpg">
+<meta property="article:published_time" content="2023-10-24T04:12:12.000Z">
+<meta property="article:modified_time" content="2023-10-24T13:42:10.428Z">
+<meta property="article:author" content="SuYi">
+<meta property="article:tag" content="SuYi, Blog, Harris">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/6537c96cc458853aef50b990.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="苏弋的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">苏弋的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">There is no one around me who is you, but there is no one who is not you.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suyiharris.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2023-10-24-Vue中 Runtime + Compiler 和 Runtime-only 两种模式含义和区别" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/24/2023-10-24-Vue%E4%B8%AD%20Runtime%20+%20Compiler%20%E5%92%8C%20Runtime-only%20%E4%B8%A4%E7%A7%8D%E6%A8%A1%E5%BC%8F%E5%90%AB%E4%B9%89%E5%92%8C%E5%8C%BA%E5%88%AB/" class="article-date">
+  <time class="dt-published" datetime="2023-10-24T04:12:12.000Z" itemprop="datePublished">2023-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Vue中 Runtime + Compiler 和 Runtime-only 两种模式含义和区别
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h2><p>在使用 vue-cli 脚手架构建项目时，会遇到一个构建选项 Vue build，有两个选择，Runtime + Compiler 和 Runtime-only ，如图所示</p>
+<ol>
+<li><img src="https://pic.imgdb.cn/item/6537c96cc458853aef50b990.jpg"></li>
+</ol>
+<p><strong>Runtime + Compiler</strong>: recommended for most users</p>
+<p><strong>运行程序+编译器：推荐给大多数用户</strong></p>
+<p><strong>Runtime-only</strong>: about 6KB lighter min+gzip, but templates (or any Vue-specific HTML) are ONLY allowed in .vue files - render functions are required elsewhere</p>
+<p><strong>仅运行程序: 比上面那种模式轻大约 6KB，但是 template (或任何特定于vue的html)只允许在.vue文件中使用——其他地方用需要 render 函数</strong></p>
+<h2 id="二、两种模式的区别"><a href="#二、两种模式的区别" class="headerlink" title="二、两种模式的区别"></a>二、两种模式的区别</h2><p>runtime-only 比 runtime-compiler 轻 6kb，代码量更少<br>runtime-only 运行更快，性能更好<br>runtime-only 其实只能识别render函数，不能识别template，.vue 文件中的template也是被 vue-template-compiler 翻译成了render函数，所以只能在.vue里写 template<br>有关vue中的render函数可以看这篇博客：vue中的render函数</p>
+<h2 id="三、解释"><a href="#三、解释" class="headerlink" title="三、解释"></a>三、解释</h2><p>两种模式生成的 脚手架 即（代码模板）主要区别在 main.js 中，其它基本上是一样的：</p>
+<p><img src="https://pic.imgdb.cn/item/6537c993c458853aef515e70.jpg"> </p>
+<p>我们再看一张图：</p>
+<p><img src="https://pic.imgdb.cn/item/6537c9a2c458853aef51974c.jpg"> </p>
+<p><strong>runtime + compiler 中 Vue 的运行过程</strong></p>
+<p>对于 runtime-compiler 来说，它的代码运行过程是：template -&gt; ast -&gt; render -&gt; virtual dom -&gt; UI</p>
+<p>首先将vue中的template模板进行解析解析成abstract syntax tree （ast）抽象语法树<br>将抽象语法树在编译成render函数<br>将render函数再翻译成virtual dom（虚拟dom）<br>将虚拟dom显示在浏览器上<br><strong>runtime-only 中 Vue 的运行过程</strong></p>
+<p>对于 runtime-only来说，它是从 render -&gt; virtual dom -&gt; UI</p>
+<p>可以看出它省略了从template -&gt; ast -&gt; render的过程<br>所以runtime-only比runtime-compiler更快，代码量更少<br>runtime-only 模式中不是没有写 template ，只是把 template 放在了.vue 的文件中了，并有一个叫 vue-template-compiler 的开发依赖时将.vue文件中的 template 解析成 render 函数。 因为是开发依赖，不在最后生产中，所以最后生产出来的运行的代码没有template</p>
+<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>如果在之后的开发中，你依然使用template，就需要选择 <strong>Runtime + Compiler</strong></p>
+<p>如果你之后的开发中，使用的是.vue文件夹开发，那么可以选择 <strong>Runtime-only</strong></p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43974265/article/details/112743656">https://blog.csdn.net/weixin_43974265/article/details/112743656</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suyiharris.github.io/2023/10/24/2023-10-24-Vue%E4%B8%AD%20Runtime%20+%20Compiler%20%E5%92%8C%20Runtime-only%20%E4%B8%A4%E7%A7%8D%E6%A8%A1%E5%BC%8F%E5%90%AB%E4%B9%89%E5%92%8C%E5%8C%BA%E5%88%AB/" data-id="clo4ezpfp000900o9dv5zagmg" data-title="Vue中 Runtime + Compiler 和 Runtime-only 两种模式含义和区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/24/2023-10-24-Thymeleaf%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Thymeleaf实战指南
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/24/2023-10-24-java%E5%AF%B9%E6%8E%A5%E8%85%BE%E8%AE%AF%E4%BA%91%E7%9F%AD%E4%BF%A1%E5%8F%91%E9%80%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">java对接腾讯云短信发送</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Git%E5%AD%A6%E4%B9%A0/">2023-10-24-Git学习</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Jwt%E7%9A%84%E9%89%B4%E6%9D%83%E7%99%BB%E5%BD%95-%E6%8B%A6%E6%88%AA%E5%99%A8-%E6%B3%A8%E5%86%8C%E6%8B%A6%E6%88%AA%E5%99%A8/">Jwt的鉴权登录-拦截器-注册拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Linux%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2SpringBoot%E9%A1%B9%E7%9B%AE/">Linux系统部署SpringBoot项目</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-SVN%E5%AD%A6%E4%B9%A0/">SVN学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 SuYi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

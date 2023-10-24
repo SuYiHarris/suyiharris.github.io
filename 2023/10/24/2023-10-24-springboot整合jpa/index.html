@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>springboot整合jpa | 苏弋的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SpringBoot-data-JPAJpaRepository接口 &#x3D;&#x3D;org.springframework.data.jpa.repository.JpaRepository;&#x3D;&#x3D;  导入依赖 1234567891011121314151617181920212223242526272829303132333435363738394041&lt;dep">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot整合jpa">
+<meta property="og:url" content="https://suyiharris.github.io/2023/10/24/2023-10-24-springboot%E6%95%B4%E5%90%88jpa/index.html">
+<meta property="og:site_name" content="苏弋的博客">
+<meta property="og:description" content="SpringBoot-data-JPAJpaRepository接口 &#x3D;&#x3D;org.springframework.data.jpa.repository.JpaRepository;&#x3D;&#x3D;  导入依赖 1234567891011121314151617181920212223242526272829303132333435363738394041&lt;dep">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-24T04:12:12.000Z">
+<meta property="article:modified_time" content="2023-10-24T13:23:55.176Z">
+<meta property="article:author" content="SuYi">
+<meta property="article:tag" content="SuYi, Blog, Harris">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="苏弋的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">苏弋的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">There is no one around me who is you, but there is no one who is not you.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suyiharris.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2023-10-24-springboot整合jpa" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/24/2023-10-24-springboot%E6%95%B4%E5%90%88jpa/" class="article-date">
+  <time class="dt-published" datetime="2023-10-24T04:12:12.000Z" itemprop="datePublished">2023-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      springboot整合jpa
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringBoot-data-JPA"><a href="#SpringBoot-data-JPA" class="headerlink" title="SpringBoot-data-JPA"></a>SpringBoot-data-JPA</h1><h2 id="JpaRepository接口"><a href="#JpaRepository接口" class="headerlink" title="JpaRepository接口"></a>JpaRepository接口</h2><p> <strong>&#x3D;&#x3D;org.springframework.data.jpa.repository.JpaRepository;&#x3D;&#x3D;</strong></p>
+<ol>
+<li><p>导入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置application.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/hjcDB?serverTimezone=UTC&amp;&amp;characterEncoding=utf8&amp;useUnicode=true</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">database:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">database-platform:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">hibernate:</span></span><br><span class="line">      <span class="attr">ddl-auto:</span> <span class="string">update</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">      <span class="attr">hibernate:</span></span><br><span class="line">        <span class="attr">dialect:</span> <span class="string">org.hibernate.dialect.MySQL57Dialect</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写实体类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sec.pojo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.persistence.Entity;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GenerationType;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Id;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity(name = &quot;userInfo&quot;)</span><span class="comment">//表名</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">user</span> &#123;</span><br><span class="line">    <span class="comment">//主键</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="comment">//自动增长</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String pwd;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写接口，继承JpaRepository&lt;user,Integer&gt;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sec.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sec.pojo.user;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.jpa.repository.JpaRepository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">userDao</span> <span class="keyword">extends</span> <span class="title class_">JpaRepository</span>&lt;user,Integer&gt; &#123;</span><br><span class="line">    <span class="comment">//传统样式查询参数（`？`）不再支持；使用JPA样式的序号参数（例如，`？1’）</span></span><br><span class="line">    <span class="comment">/*@Query(&quot;from user_info where name = ?&quot;)</span></span><br><span class="line"><span class="comment">    List&lt;user&gt; queryByNameUseHQL(String name);*/</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(value = &quot;select * from user_info where name=?&quot;,nativeQuery = true)</span></span><br><span class="line">    List&lt;user&gt; <span class="title function_">queryByNameUseSQL</span><span class="params">(String name)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(value = &quot;update user_info set name=? where id=?&quot;,nativeQuery = true)</span></span><br><span class="line">    <span class="meta">@Modifying</span><span class="comment">//需要执行一个更新操作</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">updateUsersNameById</span><span class="params">(String name,Integer id)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">/*//相当于insert语句</span></span><br><span class="line"><span class="comment">    userDao.save(new user(null,&quot;zhangsan&quot;,&quot;123456&quot;));</span></span><br><span class="line"><span class="comment">    userDao.save(new user(null,&quot;lisi&quot;,&quot;123456&quot;));</span></span><br><span class="line"><span class="comment">    userDao.save(new user(null,&quot;wangwu&quot;,&quot;123456&quot;));</span></span><br><span class="line"><span class="comment">    userDao.save(new user(null,&quot;laksjkda&quot;,&quot;123456&quot;));</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    //相当于select语句</span></span><br><span class="line"><span class="comment">    List&lt;user&gt; all = userDao.findAll();</span></span><br><span class="line"><span class="comment">    for (user u: all</span></span><br><span class="line"><span class="comment">         ) &#123;</span></span><br><span class="line"><span class="comment">        System.out.println(u);</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">//HQL   已不支持</span></span><br><span class="line">    <span class="comment">/*List&lt;user&gt; wangwu = userDao.queryByNameUseHQL(&quot;wangwu&quot;);</span></span><br><span class="line"><span class="comment">    for (user user : wangwu) &#123;</span></span><br><span class="line"><span class="comment">        System.out.println(user);</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//自定义查询方法测试</span></span><br><span class="line">    <span class="comment">/*List&lt;user&gt; lisi = userDao.queryByNameUseSQL(&quot;lisi&quot;);</span></span><br><span class="line"><span class="comment">    for (user user : lisi) &#123;</span></span><br><span class="line"><span class="comment">        System.out.println(user);</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//根据id删除</span></span><br><span class="line">    <span class="comment">//userDao.deleteById(6);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//修改</span></span><br><span class="line">    Optional&lt;user&gt; userDaoById = userDao.findById(<span class="number">2</span>);</span><br><span class="line">        <span class="type">user</span> <span class="variable">user</span> <span class="operator">=</span> userDaoById.get();</span><br><span class="line">        user.setName(<span class="string">&quot;猪八戒&quot;</span>);</span><br><span class="line">        user.setPwd(<span class="string">&quot;zhubajie&quot;</span>);</span><br><span class="line">        userDao.save(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义方法测试    修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@Transactional</span> <span class="comment">//@Transactional与@Test 一起使用时 事务是自动回滚的。</span></span><br><span class="line"><span class="meta">@Rollback(false)</span> <span class="comment">//取消自动回滚</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">upd</span><span class="params">()</span>&#123;</span><br><span class="line">    userDao.updateUsersNameById(<span class="string">&quot;haojiacheng&quot;</span>,<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Repository接口"><a href="#Repository接口" class="headerlink" title="Repository接口"></a>Repository接口</h2><ol>
+<li><p>编写接口继承Repository</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sec.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sec.pojo.user;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.repository.Repository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">userDaoByName</span> <span class="keyword">extends</span> <span class="title class_">Repository</span>&lt;user,Integer&gt;  &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据名字查信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    List&lt;user&gt; <span class="title function_">findByName</span><span class="params">(String name)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据名字和密码查信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pwd</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    List&lt;user&gt; <span class="title function_">findByNameAndPwd</span><span class="params">(String name,String pwd)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据id删除信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">deleteById</span><span class="params">(Integer id)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(value = &quot;update user_info set name=? where id=?&quot;,nativeQuery = true)</span></span><br><span class="line">    <span class="meta">@Modifying</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">updateUserName</span><span class="params">(String name,Integer id)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">hjc</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//根据名字查询信息</span></span><br><span class="line">    <span class="comment">/*List&lt;user&gt; res = userDaoByName.findByName(&quot;zhangsan&quot;);</span></span><br><span class="line"><span class="comment">    for (user u:</span></span><br><span class="line"><span class="comment">            res) &#123;</span></span><br><span class="line"><span class="comment">        System.out.println(u);</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据名字和密码查询信息</span></span><br><span class="line">    <span class="comment">/*List&lt;user&gt; zhangsan = userDaoByName.findByNameAndPwd(&quot;adf&quot;, &quot;123456&quot;);</span></span><br><span class="line"><span class="comment">    System.out.println(zhangsan);</span></span><br><span class="line"><span class="comment">    System.out.println(zhangsan==null);</span></span><br><span class="line"><span class="comment">    System.out.println(zhangsan.equals(&quot;&quot;));</span></span><br><span class="line"><span class="comment">    for (user u :</span></span><br><span class="line"><span class="comment">            zhangsan) &#123;</span></span><br><span class="line"><span class="comment">        System.out.println(u);</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//根据id删除</span></span><br><span class="line">    <span class="comment">//userDaoByName.deleteById(7);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//修改</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="meta">@Rollback(false)</span> <span class="comment">//取消自动回滚</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line">        userDaoByName.updateUserName(<span class="string">&quot;郝嘉诚&quot;</span>,<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="CrudRepository-接口"><a href="#CrudRepository-接口" class="headerlink" title="CrudRepository 接口"></a><strong>CrudRepository</strong> 接口</h2><p>​	如果持久层接口较多，且每一个接口都需要声明相似的增删改查方法，直接继承 Repository 就显得有些啰嗦，这时可以继承 CrudRepository，它会自动为域对象创建增删改查方法，供业务层直接使用。开发者只是多写了 “Crud” 四个字母，即刻便为域对象提供了开箱即用的十个增删改查方法。</p>
+<p>​	但是，使用 CrudRepository 也有副作用，它可能暴露了你不希望暴露给业务层的方法。比如某些接口你只希望提供增加的操作而不希望提供删除的方法。针对这种情况，开发者只能退回到 Repository 接口，然后到 CrudRepository 中把希望保留的方法声明复制到自定义的接口中即可。</p>
+<p>​	分页查询和排序是持久层常用的功能，Spring Data 为此提供了 PagingAndSortingRepository 接口，它继承自 CrudRepository 接口，在 CrudRepository 基础上新增了两个与分页有关的方法。但是，我们很少会将自定义的持久层接口直接继承自 PagingAndSortingRepository，而是在继承 Repository 或 CrudRepository 的基础上，在自己声明的方法参数列表最后增加一个 Pageable 或 Sort 类型的参数，用于指定分页或排序信息即可，这比直接使用 PagingAndSortingRepository 提供了更大的灵活性。</p>
+<p>​	JpaRepository 是继承自 PagingAndSortingRepository 的针对 JPA 技术提供的接口，它在父接口的基础上，提供了其他一些方法，比如 flush()，saveAndFlush()，deleteInBatch() 等。如果有这样的需求，则可以继承该接口。</p>
+<p>Repository用于查询，CrudRepository用于增删改 </p>
+<p>上代码：</p>
+<ol>
+<li><p>创建一个interface 接口 继承 CrudRepository</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sec.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sec.pojo.user;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.repository.CrudRepository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">userCrud</span> <span class="keyword">extends</span> <span class="title class_">CrudRepository</span>&lt;user,Integer&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">CrudRepositoryTest</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">/*//增</span></span><br><span class="line"><span class="comment">        user user = new user();</span></span><br><span class="line"><span class="comment">        user.setName(&quot;苏弋&quot;);</span></span><br><span class="line"><span class="comment">        user.setPwd(&quot;452256&quot;);</span></span><br><span class="line"><span class="comment">        userCrud.save(user);*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//删</span></span><br><span class="line">        <span class="comment">//userCrud.deleteById(10);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//改</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//查全部</span></span><br><span class="line">        <span class="comment">/*Iterable&lt;user&gt; all = userCrud.findAll();</span></span><br><span class="line"><span class="comment">        for (user user : all) &#123;</span></span><br><span class="line"><span class="comment">            System.out.println(user);</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//根据id查</span></span><br><span class="line">        <span class="comment">/*Optional&lt;user&gt; userCrudById = userCrud.findById(1);</span></span><br><span class="line"><span class="comment">        System.out.println(userCrudById.get());*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//查总记录数</span></span><br><span class="line">        <span class="comment">/*long count = userCrud.count();</span></span><br><span class="line"><span class="comment">        System.out.println(&quot;共：&quot;+count+&quot;行&quot;);*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//根据id查询是否存在</span></span><br><span class="line">        <span class="comment">/*boolean flag = userCrud.existsById(1);</span></span><br><span class="line"><span class="comment">        if(flag=true)&#123;</span></span><br><span class="line"><span class="comment">            System.out.println(&quot;存在&quot;);</span></span><br><span class="line"><span class="comment">        &#125;else&#123;</span></span><br><span class="line"><span class="comment">            System.out.println(&quot;不存在&quot;);</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//修改</span></span><br><span class="line">        Optional&lt;user&gt; byId = userCrud.findById(<span class="number">2</span>);</span><br><span class="line">        <span class="type">user</span> <span class="variable">user</span> <span class="operator">=</span> byId.get();</span><br><span class="line">        user.setName(<span class="string">&quot;孙悟空&quot;</span>);</span><br><span class="line">        user.setPwd(<span class="string">&quot;sunwukong&quot;</span>);</span><br><span class="line">        userCrud.save(user);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suyiharris.github.io/2023/10/24/2023-10-24-springboot%E6%95%B4%E5%90%88jpa/" data-id="clo4ezpfv000g00o97bhgdafv" data-title="springboot整合jpa" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/24/2023-10-24-spring-mybatis%E6%95%B4%E5%90%88%E6%96%B9%E5%BC%8F%E4%B8%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          spring-mybatis整合方式一
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/24/2023-10-24-vue-Router/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">vue-Router</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Git%E5%AD%A6%E4%B9%A0/">2023-10-24-Git学习</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Jwt%E7%9A%84%E9%89%B4%E6%9D%83%E7%99%BB%E5%BD%95-%E6%8B%A6%E6%88%AA%E5%99%A8-%E6%B3%A8%E5%86%8C%E6%8B%A6%E6%88%AA%E5%99%A8/">Jwt的鉴权登录-拦截器-注册拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Linux%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2SpringBoot%E9%A1%B9%E7%9B%AE/">Linux系统部署SpringBoot项目</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-SVN%E5%AD%A6%E4%B9%A0/">SVN学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 SuYi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

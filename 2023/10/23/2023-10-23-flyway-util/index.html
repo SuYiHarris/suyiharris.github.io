@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>A flyway Util | 苏弋的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="flyway学习笔记一、flyway工作流程 项目启动，应用程序完成数据库连接池的建立后，Flyway自动运行。 初次使用时，flyway会创建一个 flyway_schema_history 表，用于记录sql执行记录。 Flyway会扫描项目指定路径下(默认是 classpath:db&#x2F;migration )的所有sql脚本，与 flyway_schema_history 表脚本记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A flyway Util">
+<meta property="og:url" content="https://suyiharris.github.io/2023/10/23/2023-10-23-flyway-util/index.html">
+<meta property="og:site_name" content="苏弋的博客">
+<meta property="og:description" content="flyway学习笔记一、flyway工作流程 项目启动，应用程序完成数据库连接池的建立后，Flyway自动运行。 初次使用时，flyway会创建一个 flyway_schema_history 表，用于记录sql执行记录。 Flyway会扫描项目指定路径下(默认是 classpath:db&#x2F;migration )的所有sql脚本，与 flyway_schema_history 表脚本记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6537ce38c458853aef669346.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6537ce47c458853aef66cfcb.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6537ce57c458853aef670fae.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6537ce66c458853aef676645.jpg">
+<meta property="article:published_time" content="2023-10-23T04:12:12.000Z">
+<meta property="article:modified_time" content="2023-10-24T14:06:08.839Z">
+<meta property="article:author" content="SuYi">
+<meta property="article:tag" content="SuYi, Blog, Harris">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/6537ce38c458853aef669346.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="苏弋的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">苏弋的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">There is no one around me who is you, but there is no one who is not you.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suyiharris.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2023-10-23-flyway-util" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/23/2023-10-23-flyway-util/" class="article-date">
+  <time class="dt-published" datetime="2023-10-23T04:12:12.000Z" itemprop="datePublished">2023-10-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      A flyway Util
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="flyway学习笔记"><a href="#flyway学习笔记" class="headerlink" title="flyway学习笔记"></a>flyway学习笔记</h1><h2 id="一、flyway工作流程"><a href="#一、flyway工作流程" class="headerlink" title="一、flyway工作流程"></a>一、flyway工作流程</h2><ol>
+<li>项目启动，应用程序完成数据库连接池的建立后，Flyway自动运行。</li>
+<li>初次使用时，flyway会创建一个 flyway_schema_history 表，用于记录sql执行记录。</li>
+<li>Flyway会扫描项目指定路径下(默认是 classpath:db&#x2F;migration )的所有sql脚本，与 flyway_schema_history 表脚本记录进行比对。如果数据库记录执行过的脚本记录，与项目中的sql脚本不一致，Flyway会报错并停止项目执行。</li>
+<li>如果校验通过，则根据表中的sql记录最大版本号，忽略所有版本号不大于该版本的脚本。再按照版本号从小到大，逐个执行其余脚本。</li>
+</ol>
+<h2 id="二、如何使用"><a href="#二、如何使用" class="headerlink" title="二、如何使用"></a>二、如何使用</h2><h3 id="1、导入maven依赖"><a href="#1、导入maven依赖" class="headerlink" title="1、导入maven依赖"></a>1、导入maven依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.flywaydb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flyway-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>6.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、在yml中配置"><a href="#2、在yml中配置" class="headerlink" title="2、在yml中配置"></a>2、在yml中配置</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment"># 数据库连接配置</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/flyway-demo?characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">flyway:</span></span><br><span class="line">    <span class="comment"># 是否启用flyway</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># 编码格式，默认UTF-8</span></span><br><span class="line">    <span class="attr">encoding:</span> <span class="string">UTF-8</span></span><br><span class="line">    <span class="comment"># 迁移sql脚本文件存放路径，默认db/migration</span></span><br><span class="line">    <span class="attr">locations:</span> <span class="string">classpath:db/migration</span></span><br><span class="line">    <span class="comment"># 迁移sql脚本文件名称的前缀，默认V</span></span><br><span class="line">    <span class="attr">sql-migration-prefix:</span> <span class="string">V</span></span><br><span class="line">    <span class="comment"># 迁移sql脚本文件名称的分隔符，默认2个下划线__</span></span><br><span class="line">    <span class="attr">sql-migration-separator:</span> <span class="string">__</span></span><br><span class="line">    <span class="comment"># 迁移sql脚本文件名称的后缀</span></span><br><span class="line">    <span class="attr">sql-migration-suffixes:</span> <span class="string">.sql</span></span><br><span class="line">    <span class="comment"># 迁移时是否进行校验，默认true</span></span><br><span class="line">    <span class="attr">validate-on-migrate:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># 当迁移发现数据库非空且存在没有元数据的表时，自动执行基准迁移，新建schema_version表</span></span><br><span class="line">    <span class="attr">baseline-on-migrate:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、根据配置文件中的SQL脚本文件存放路径，创建对应的目录"><a href="#3、根据配置文件中的SQL脚本文件存放路径，创建对应的目录" class="headerlink" title="3、根据配置文件中的SQL脚本文件存放路径，创建对应的目录"></a>3、根据配置文件中的SQL脚本文件存放路径，创建对应的目录</h3><p>resources&#x2F;db&#x2F;migration</p>
+<h3 id="4、添加SQL脚本，创建时注意命名规范"><a href="#4、添加SQL脚本，创建时注意命名规范" class="headerlink" title="4、添加SQL脚本，创建时注意命名规范"></a>4、添加SQL脚本，创建时注意命名规范</h3><ul>
+<li><p>sql脚本的命名有两种，一种是以V开头的+版本号+两段下划线+文件名.sql，这种以V开头的脚本是只执行一次的，另一种是R开头的，命名方式类似，这种脚本可以重复执行，但不建议修改执行过的sql语句</p>
+</li>
+<li><p>V开头的sql文件比R开头的sql文件优先级高</p>
+</li>
+</ul>
+<h3 id="5、启动项目后可以在flyway-schema-history表中查看相关语句执行记录"><a href="#5、启动项目后可以在flyway-schema-history表中查看相关语句执行记录" class="headerlink" title="5、启动项目后可以在flyway_schema_history表中查看相关语句执行记录"></a>5、启动项目后可以在flyway_schema_history表中查看相关语句执行记录</h3><p><img src="https://pic.imgdb.cn/item/6537ce38c458853aef669346.jpg"></p>
+<p><img src="https://pic.imgdb.cn/item/6537ce47c458853aef66cfcb.jpg"></p>
+<p><img src="https://pic.imgdb.cn/item/6537ce57c458853aef670fae.jpg"></p>
+<h3 id="6、说明"><a href="#6、说明" class="headerlink" title="6、说明"></a>6、说明</h3><p>如果我们修改V2__add_user.sql中的内容，再次执行的话，就会报错，提示信息如下：</p>
+<p> 　　[ERROR] Migration checksum mismatch for migration version 2 </p>
+<p>　　如果我们修改了R__add_unknown_user.sql，再次执行的话，该脚本就会再次得到执行，并且flyway的历史记录表中也会增加本次执行的记录。 </p>
+<h2 id="三、Maven插件"><a href="#三、Maven插件" class="headerlink" title="三、Maven插件"></a>三、Maven插件</h2><h3 id="1、配置"><a href="#1、配置" class="headerlink" title="1、配置"></a>1、配置</h3><p>以上步骤中，每次想要migration都需要运行整个springboot项目，并且只能执行migrate一种命令，其实flyway还是有很多其它命令的。maven插件给了我们不需要启动项目就能执行flyway各种命令的机会。</p>
+<p>在pom.xml中引入flyway的插件，同时配置好对应的数据库连接。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.flywaydb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flyway-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">url</span>&gt;</span>jdbc:mysql://localhost:3306/flyway-demo?characterEncoding=utf-8<span class="symbol">&amp;amp;</span>useSSL=false<span class="symbol">&amp;amp;</span>serverTimezone=Asia/Shanghai</span><br><span class="line">                <span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">user</span>&gt;</span>root<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">password</span>&gt;</span>root<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">driver</span>&gt;</span>com.mysql.cj.jdbc.Driver<span class="tag">&lt;/<span class="name">driver</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://pic.imgdb.cn/item/6537ce66c458853aef676645.jpg"></p>
+<h3 id="2、命令说明"><a href="#2、命令说明" class="headerlink" title="2、命令说明"></a>2、命令说明</h3><ol>
+<li><p>baseline</p>
+<p>对已经存在数据库Schema结构的数据库一种解决方案。实现在非空数据库新建MetaData表，并把Migrations应用到该数据库；也可以在已有表结构的数据库中实现添加Metadata表。</p>
+</li>
+<li><p>clean</p>
+<p>清除掉对应数据库Schema中所有的对象，包括表结构，视图，存储过程等，clean操作在dev 和 test阶段很好用，但在生产环境务必禁用。</p>
+</li>
+<li><p>info</p>
+<p>用于打印所有的Migrations的详细和状态信息，也是通过MetaData和Migrations完成的，可以快速定位当前的数据库版本。</p>
+</li>
+<li><p>repair</p>
+<p>repair操作能够修复metaData表，该操作在metadata出现错误时很有用。</p>
+</li>
+<li><p>undo</p>
+<p>撤销操作，社区版不支持。</p>
+</li>
+<li><p>migrate</p>
+<p>迁移。</p>
+</li>
+<li><p>validate</p>
+<p>验证已经apply的Migrations是否有变更，默认开启的，原理是对比MetaData表与本地Migrations的checkNum值，如果值相同则验证通过，否则失败。</p>
+</li>
+</ol>
+<h2 id="四、知识补充"><a href="#四、知识补充" class="headerlink" title="四、知识补充"></a>四、知识补充</h2><ol>
+<li>flyway执行migrate必须在空白的数据库上进行，否则报错。</li>
+<li>对于已经有数据的数据库，必须先baseline，然后才能migrate。</li>
+<li>clean操作是删除数据库的所有内容，包括baseline之前的内容。</li>
+<li>尽量不要修改已经执行过的SQL，即便是R开头的可反复执行的SQL，它们会不利于数据迁移。</li>
+<li>当需要做数据迁移的时候，更换一个新的空白数据库，执行下migrate命令，所有的数据库更改都可以一步到位地迁移过去。</li>
+</ol>
+<h2 id="五、配置清单"><a href="#五、配置清单" class="headerlink" title="五、配置清单"></a>五、配置清单</h2><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flyway.baseline-description对执行迁移时基准版本的描述.</span></span><br><span class="line"><span class="attr">flyway.baseline-on-migrate当迁移时发现目标schema非空，而且带有没有元数据的表时，是否自动执行基准迁移，默认false.</span></span><br><span class="line"><span class="attr">flyway.baseline-version开始执行基准迁移时对现有的schema的版本打标签，默认值为1.</span></span><br><span class="line"><span class="attr">flyway.check-location检查迁移脚本的位置是否存在，默认false.</span></span><br><span class="line"><span class="attr">flyway.clean-on-validation-error当发现校验错误时是否自动调用clean，默认false.</span></span><br><span class="line"><span class="attr">flyway.enabled是否开启flywary，默认true.</span></span><br><span class="line"><span class="attr">flyway.encoding设置迁移时的编码，默认UTF-8.</span></span><br><span class="line"><span class="attr">flyway.ignore-failed-future-migration当读取元数据表时是否忽略错误的迁移，默认false.</span></span><br><span class="line"><span class="attr">flyway.init-sqls当初始化好连接时要执行的SQL.</span></span><br><span class="line"><span class="attr">flyway.locations迁移脚本的位置，默认db/migration.</span></span><br><span class="line"><span class="attr">flyway.out-of-order是否允许无序的迁移，默认false.</span></span><br><span class="line"><span class="attr">flyway.password目标数据库的密码.</span></span><br><span class="line"><span class="attr">flyway.placeholder-prefix设置每个placeholder的前缀，默认$&#123;.</span></span><br><span class="line"><span class="attr">flyway.placeholder-replacementplaceholders是否要被替换，默认true.</span></span><br><span class="line"><span class="attr">flyway.placeholder-suffix设置每个placeholder的后缀，默认&#125;.</span></span><br><span class="line"><span class="attr">flyway.placeholders.[placeholder</span> <span class="string">name]设置placeholder的value</span></span><br><span class="line"><span class="attr">flyway.schemas设定需要flywary迁移的schema，大小写敏感，默认为连接默认的schema.</span></span><br><span class="line"><span class="attr">flyway.sql-migration-prefix迁移文件的前缀，默认为V.</span></span><br><span class="line"><span class="attr">flyway.sql-migration-separator迁移脚本的文件名分隔符，默认__</span></span><br><span class="line"><span class="attr">flyway.sql-migration-suffix迁移脚本的后缀，默认为.sql</span></span><br><span class="line"><span class="attr">flyway.tableflyway使用的元数据表名，默认为schema_version</span></span><br><span class="line"><span class="attr">flyway.target迁移时使用的目标版本，默认为latest</span> <span class="string">version</span></span><br><span class="line"><span class="attr">flyway.url迁移时使用的JDBC</span> <span class="string">URL，如果没有指定的话，将使用配置的主数据源</span></span><br><span class="line"><span class="attr">flyway.user迁移数据库的用户名</span></span><br><span class="line"><span class="attr">flyway.validate-on-migrate迁移时是否校验，默认为true</span></span><br></pre></td></tr></table></figure>
+
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41378597/article/details/124134146">原文链接</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suyiharris.github.io/2023/10/23/2023-10-23-flyway-util/" data-id="clo4ezpfj000100o95lm28384" data-title="A flyway Util" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/24/2023-10-24-Redis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Redis
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/09/22/2023-09-22-%E6%8B%A6%E6%88%AA%E5%99%A8-java/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">拦截器-java</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Git%E5%AD%A6%E4%B9%A0/">2023-10-24-Git学习</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Jwt%E7%9A%84%E9%89%B4%E6%9D%83%E7%99%BB%E5%BD%95-%E6%8B%A6%E6%88%AA%E5%99%A8-%E6%B3%A8%E5%86%8C%E6%8B%A6%E6%88%AA%E5%99%A8/">Jwt的鉴权登录-拦截器-注册拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-Linux%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2SpringBoot%E9%A1%B9%E7%9B%AE/">Linux系统部署SpringBoot项目</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/24/2023-10-24-SVN%E5%AD%A6%E4%B9%A0/">SVN学习</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 SuYi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
